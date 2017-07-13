@@ -1,0 +1,30 @@
+dependencies: \
+  /Users/nondracek/reactStuff/SimpleApp/node_modules/react-native/Libraries/Text/RCTTextField.m \
+  /Users/nondracek/reactStuff/SimpleApp/node_modules/react-native/Libraries/Text/RCTTextField.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTView.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUIManager.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTViewManager.h \
+  /Users/nondracek/reactStuff/SimpleApp/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
+  /Users/nondracek/reactStuff/SimpleApp/node_modules/react-native/Libraries/Text/RCTTextSelection.h \
+  /Users/nondracek/reactStuff/SimpleApp/node_modules/react-native/Libraries/Text/RCTUITextField.h

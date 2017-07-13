@@ -1,0 +1,9 @@
+<<<<<<< HEAD
+console.log('running init script');
+
+require('./createFirstAdmin');
+=======
+console.log('running init script...');
+
+require('./createFirstSuperAdmin');
+>>>>>>> 9c6b0fcd1520e55ddce8e186265a5f989e3f35a1

@@ -1,0 +1,26 @@
+module.exports = {
+    port: 3000,
+    dbUrl: 'localhost:5000',
+<<<<<<< HEAD
+    
+    // secret for hashingtokens
+    secret: 'ThisIsDefinitelyNotTheSecret',
+    
+    emailFromName: 'HSA Coupons',
+    emailFromAddress: 'hsacoupons@gmail.com',
+    emailPassword: 'couponswoo',
+    
+    providers: [
+    	{
+    		name: "altel",
+    		sms
+    	}
+    ]
+=======
+
+    // secret for hashing tokens
+    secret: 'ThisIsDefinitelyNotTheSecret',
+
+
+>>>>>>> 69790bf2409c07e344931263456b76bae4980159
+};
