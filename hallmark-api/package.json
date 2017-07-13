@@ -1,12 +1,12 @@
 {
   "name": "hsa-coupon-api",
   "version": "0.0.0",
-  "author": "Jordan Hayashi <jhhayashi@gmail.com>",
+  "author": "Nathan Ondracek <nondracek@gmail.com>",
   "private": true,
   "scripts": {
     "build": "npm install",
-    "start": "node coupon-api.js",
-    "dev": "mongod -f models/mongod.conf & node coupon-api.js",
+    "start": "node hallmark-api.js",
+    "dev": "mongod -f models/mongod.conf & node hallmark-api.js",
     "mongo-kill": "killall mongod"
   },
   "dependencies": {
