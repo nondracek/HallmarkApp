@@ -4,17 +4,28 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Text,
+  Image,
 } from 'react-native';
 import { measureTypes } from '../files/data';
 import { defaultStyles } from '../components/style'
 import MeasureButton from '../components/MeasureButton'
 import MeasurePopUp from '../components/MeasurePopUp'
+import companyTitle from './Companies'
 
 
 // Get screen Dimensions
 const { width, height } = Dimensions.get('window');
 
 export default class Measures extends Component {
+  comp = "hello"
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: `${navigation.state.params.title}`
+    }
+  }
+
   state = {
     popupIsOpen: false,
   }
@@ -23,7 +34,6 @@ export default class Measures extends Component {
     this.setState({
       popupIsOpen: true,
       measure,
-      key,
     });
   }
 
@@ -43,7 +53,7 @@ export default class Measures extends Component {
           showsVerticalScrollIndicator={false}
         >
           {measureTypes.map((measure, index) => <MeasureButton
-            measureTypes={measure}
+            measure={measure}
             onOpen={this.openMeasure}
             key={index}
           />)}
@@ -62,7 +72,7 @@ export default class Measures extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,         // start below status bar
+    paddingTop: 5,         // start below status bar
   },
   scrollContent: {
     flexDirection: 'row',   // arrange posters in rows

@@ -9,10 +9,11 @@ import {
   Text,
   TouchableHighlight,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
+
 import { defaultStyles } from './style';
-import { measureTypes } from '../files/data'
+import { measureTypes } from '../files/data';
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
@@ -121,19 +122,27 @@ export default class MeasurePopUp extends Component {
         let measureID = measureTypes.indexOf(this.props.measure)
 
         // navigate to different measure if swiped left or right
-        if (dx > width / 4 && measureID != measureTypes.length) {
-          this.props.onSwipe(measureTypes[measureID + 1]);
+        if (dx < - width / 4) {
+          if (measureID === measureTypes.length - 1){
+            this.props.onSwipe(measureTypes[0]);
+          }
+          else {
+            this.props.onSwipe(measureTypes[measureID + 1]);
+          }
         }
-        if (dx < - width / 4 && measureID != 0) {
-          this.props.onSwipe(measureTypes[measureID - 1])
+
+        if (dx > width / 4) {
+          if (measureID === 0) {
+            this.props.onSwipe(measureTypes[measureTypes.length - 1]);
+          }
+          else {
+            this.props.onSwipe(measureTypes[measureID - 1]);
+          }
         }
 
         // Close if pulled below default height
         if (newHeight < defaultHeight && Math.abs(dx) < width / 4) {
           this.props.onClose();
-          this.setState({
-            key: this.state.key - 1,
-          })
         }
 
         // Update previous height
@@ -198,22 +207,46 @@ export default class MeasurePopUp extends Component {
   // Dynamic styles that depend on state
   getStyles = () => {
     return {
-      imageContainer: this.state.expanded ? {
-        width: width / 2,         // half of screen widtj
-      } : {
-        maxWidth: 110,            // limit width
-        marginRight: 10,
-      },
-      movieContainer: this.state.expanded ? {
-        flexDirection: 'column',  // arrange image and movie info in a column
-        alignItems: 'flex-start',     // and center them
-      } : {
-        flexDirection: 'row',     // arrange image and movie info in a row
-      },
       title: this.state.expanded ? {
         textAlign: 'left',
       } : {},
     };
+  }
+
+
+  measureData(measure) {
+    if (measure.title === 'Policy Counts') {
+      return (
+        <View style={styles.movieInfo}>
+          <Text style={styles.listHeader}>New</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={styles.listHeader}>Renewals</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+        </View>
+      )
+    }
+    else if (measure.title === 'Incurred Loss') {
+      return (
+        <View style={styles.movieInfo}>
+          <Text style={styles.listHeader}>Incurred Loss</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={styles.listHeader}>Average Incurred Severity</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+        </View>
+      )
+    }
+    else {
+      return (
+        <View style={styles.simpleInfo}>
+          <Text style={[styles.title, this.getStyles().title]}>MTD: {measure.MTD}</Text>
+          <Text style={[styles.title, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+        </View>
+      )
+    }
   }
 
 
@@ -223,7 +256,7 @@ export default class MeasurePopUp extends Component {
       onBook
     } = this.props;
     // Pull out movie data
-    const { title } = measure || {};
+    const { title, MTD, YTD } = measure || {};
     // Render nothing if not visible
     if (!this.state.visible) {
       return null;
@@ -244,39 +277,26 @@ export default class MeasurePopUp extends Component {
         >
 
           {/* Content */}
-          <View style={styles.content}>
-            <View>
+          <View
+            style={styles.content}
+            {...this._panResponder.panHandlers}>
+            <View style={styles.popUpTitle}>
               {/* Measure */}
               <Text style={styles.sectionHeader}>{title}</Text>
             </View>
             {/* Movie poster, title and genre */}
             <View
-              style={[styles.movieContainer, this.getStyles().movieContainer]}
+              style={styles.infoContainer}
               {...this._panResponder.panHandlers}
             >
               {/* MTD YTD */}
-              <View style={styles.movieInfo}>
-                <Text style={[styles.title, this.getStyles().title]}>MTD:</Text>
-                <Text style={[styles.title, this.getStyles().title]}>YTD:</Text>
-              </View>
+              {this.measureData(measure)}
             </View>
 
             {/* Showtimes */}
 
 
           </View>
-
-          {/* Footer */}
-          <View style={styles.footer}>
-            <TouchableHighlight
-              underlayColor="#9575CD"
-              style={styles.buttonContainer}
-              onPress={onBook}
-            >
-              <Text style={styles.button}>Book My Tickets</Text>
-            </TouchableHighlight>
-          </View>
-
         </Animated.View>
       </View>
     );
@@ -306,9 +326,10 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   // Movie container
-  movieContainer: {
+  infoContainer: {
     flex: 1,                            // take up all available space
     marginBottom: 20,
+    alignItems: 'flex-start',
   },
   imageContainer: {
     flex: 1,                            // take up all available space
@@ -319,29 +340,52 @@ const styles = StyleSheet.create({
   },
   movieInfo: {
     backgroundColor: 'transparent',     // looks nicier when switching to/from expanded mode
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex: 1,
+    flexWrap: 'wrap',
+
+  },
+  simpleInfo: {
+    backgroundColor: 'transparent',     // looks nicier when switching to/from expanded mode
     flexDirection: 'column',
-    alignItems: 'flex-start',
     justifyContent: 'center',
     flex: 1,
 
   },
-  title: {
+  smalltitle: {
     ...defaultStyles.text,
-    fontSize: 20,
-    paddingLeft: width / 5,
-    paddingTop: height / 10,
+    fontSize: 30,
+    paddingLeft: width / 10,
+    paddingTop: 0,
+    paddingBottom: height / 10,
 
   },
-  genre: {
+  title: {
     ...defaultStyles.text,
-    color: '#BBBBBB',
-    fontSize: 14,
+    fontSize: 35,
+    paddingLeft: width / 10,
+    paddingTop: 0,
+    paddingBottom: height / 15,
+    minWidth: width / 2
+    // paddingRight: width / 2
+
+  },
+  listHeader: {
+    ...defaultStyles.text,
+    flex: 1,
+    color: 'black',
+    fontSize: 25,
+    textDecorationLine: 'underline',
+    minWidth: width,
+    paddingBottom: height / 20,
   },
   sectionHeader: {
     ...defaultStyles.text,
-    color: '#AAAAAA',
-    fontSize: 30,
+    color: 'rgb(127,0,127)',
+    fontSize: 40,
     fontWeight: 'bold',
+    alignItems: 'center',
   },
   // Footer
   footer: {
@@ -352,11 +396,14 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    alignItems: 'center',
   },
   button: {
     ...defaultStyles.text,
     color: '#FFFFFF',
     fontSize: 18,
   },
+  popUpTitle: {
+    alignItems: 'center',
+    paddingBottom: 20,
+  }
 });

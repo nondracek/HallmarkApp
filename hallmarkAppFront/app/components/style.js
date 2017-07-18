@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 
 export const defaultStyles = {
   text: {
-    fontFamily: 'Avenir',
+    fontFamily: 'Helvetica',
   }
 };
 

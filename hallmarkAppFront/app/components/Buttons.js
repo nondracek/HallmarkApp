@@ -13,7 +13,7 @@ export class ButtonImage extends Component {
 
         return(
             <Image
-                source={require('../files/button.png')}
+                source={require('../files/images/button.png')}
                 style={defaultStyles.button}
                 resizeMode='contain'
             >

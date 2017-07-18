@@ -5,10 +5,11 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import HomeScreen from './screens/Home'
 import Measures from './screens/Measures'
+import Companies from './screens/Companies'
 import {styles} from './components/style'
 
 
 export const hallmarkAppFront = StackNavigator({
-  Home: { screen: HomeScreen },
-  Details: { screen: Measures },
+  Companies: { screen: Companies },
+  Measures: { screen: Measures },
 });

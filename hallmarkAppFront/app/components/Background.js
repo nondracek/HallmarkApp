@@ -7,8 +7,7 @@ import {defaultStyles} from './style.js'
 class Background extends Component {
     render() {
         return(
-            <Image source={require('../files/background.jpg')}
-                 style={defaultStyles.background}>
+            <Image source={require('../files/images/background.jpg')}>
                  {this.props.children}
             </Image>
         )
