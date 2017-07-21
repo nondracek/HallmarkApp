@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
+  ActivityIndicator,
   Dimensions,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   View,
   Text,
   Image,
 } from 'react-native';
-import { measureTypes } from '../files/data';
+import LinearGradient from 'react-native-linear-gradient';
+
 import { defaultStyles } from '../components/style'
 import MeasureButton from '../components/MeasureButton'
 import MeasurePopUp from '../components/MeasurePopUp'
 import companyTitle from './Companies'
+import measureButtons from '../files/data'
+
 
 
 // Get screen Dimensions
 const { width, height } = Dimensions.get('window');
 
+@connect(
+  state => ({
+    measureTypes: state.measureTypes,
+    loading: state.loading,
+  }),
+  dispatch => ({
+    refresh: () => dispatch({type: 'GET_MOVIE_DATA'}),
+  }),
+)
+
 export default class Measures extends Component {
-  comp = "hello"
 
   static navigationOptions = ({navigation}) => {
     return {
@@ -29,6 +44,10 @@ export default class Measures extends Component {
   state = {
     popupIsOpen: false,
   }
+
+
+
+
 
   openMeasure = (measure, key) => {
     this.setState({
@@ -44,38 +63,44 @@ export default class Measures extends Component {
   }
 
   render() {
+    const { measureTypes, loading, refresh } = this.props;
     return (
-      <View style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-    		  // Hide all scroll indicators
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
+      <LinearGradient
+        colors={['#4c669f', '#3b5998', '#192f6a']}
+        style={styles.container}
+      >
+        <View
+          style={styles.buttonContent}
         >
           {measureTypes.map((measure, index) => <MeasureButton
             measure={measure}
             onOpen={this.openMeasure}
+            imgNum={measureTypes.indexOf(measure)}
             key={index}
           />)}
-        </ScrollView>
+        </View>
         <MeasurePopUp
           onSwipe={this.openMeasure}
           measure={this.state.measure}
           measureID = {this.state.key}
           isOpen={this.state.popupIsOpen}
           onClose={this.closeMeasure}
+          measureTypes={measureTypes}
         />
-      </View>
+    </LinearGradient>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,         // start below status bar
+    // paddingTop: .05*(height - 50),         // start below status bar
   },
-  scrollContent: {
+  buttonContent: {
     flexDirection: 'row',   // arrange posters in rows
     flexWrap: 'wrap',       // allow multiple rows
+    justifyContent: 'center',
+    paddingTop: .05*(height - 50),
+    height: height,
   },
 });

@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
-import {hallmarkAppFront} from './app/App';
+import { App } from './app/App';
 
 
-AppRegistry.registerComponent('hallmarkAppFront', () => hallmarkAppFront);
+AppRegistry.registerComponent('hallmarkAppFront', () => App);

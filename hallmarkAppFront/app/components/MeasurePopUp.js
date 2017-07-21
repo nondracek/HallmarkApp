@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 import {
   Animated,
   Dimensions,
@@ -11,14 +11,15 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { defaultStyles } from './style';
-import { measureTypes } from '../files/data';
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
 // Set default popup height to 67% of screen height
 const defaultHeight = height * 0.67;
+
 
 export default class MeasurePopUp extends Component {
 
@@ -119,24 +120,24 @@ export default class MeasurePopUp extends Component {
 
         let newWidth = this._previousWidth - dx
 
-        let measureID = measureTypes.indexOf(this.props.measure)
+        let measureID = this.props.measureTypes.indexOf(this.props.measure)
 
         // navigate to different measure if swiped left or right
         if (dx < - width / 4) {
-          if (measureID === measureTypes.length - 1){
-            this.props.onSwipe(measureTypes[0]);
+          if (measureID === this.props.measureTypes.length - 1){
+            this.props.onSwipe(this.props.measureTypes[0]);
           }
           else {
-            this.props.onSwipe(measureTypes[measureID + 1]);
+            this.props.onSwipe(this.props.measureTypes[measureID + 1]);
           }
         }
 
         if (dx > width / 4) {
           if (measureID === 0) {
-            this.props.onSwipe(measureTypes[measureTypes.length - 1]);
+            this.props.onSwipe(this.props.measureTypes[this.props.measureTypes.length - 1]);
           }
           else {
-            this.props.onSwipe(measureTypes[measureID - 1]);
+            this.props.onSwipe(this.props.measureTypes[measureID - 1]);
           }
         }
 
@@ -215,35 +216,35 @@ export default class MeasurePopUp extends Component {
 
 
   measureData(measure) {
-    if (measure.title === 'Policy Counts') {
+    if (measure.measureTitle === 'Policy Counts') {
       return (
         <View style={styles.movieInfo}>
           <Text style={styles.listHeader}>New</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: ${measure.MTD1}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: ${measure.YTD1}</Text>
           <Text style={styles.listHeader}>Renewals</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: ${measure.MTD2}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: ${measure.YTD2}</Text>
         </View>
       )
     }
-    else if (measure.title === 'Incurred Loss') {
+    else if (measure.measureTitle === 'Incurred Loss') {
       return (
         <View style={styles.movieInfo}>
           <Text style={styles.listHeader}>Incurred Loss</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: ${measure.MTD1}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: ${measure.YTD1}</Text>
           <Text style={styles.listHeader}>Average Incurred Severity</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: {measure.MTD}</Text>
-          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>MTD: ${measure.MTD2}</Text>
+          <Text style={[styles.smalltitle, this.getStyles().title]}>YTD: ${measure.YTD2}</Text>
         </View>
       )
     }
     else {
       return (
         <View style={styles.simpleInfo}>
-          <Text style={[styles.title, this.getStyles().title]}>MTD: {measure.MTD}</Text>
-          <Text style={[styles.title, this.getStyles().title]}>YTD: {measure.YTD}</Text>
+          <Text style={[styles.title, this.getStyles().title]}>MTD: ${measure.MTD1}</Text>
+          <Text style={[styles.title, this.getStyles().title]}>YTD: ${measure.YTD1}</Text>
         </View>
       )
     }
@@ -256,7 +257,7 @@ export default class MeasurePopUp extends Component {
       onBook
     } = this.props;
     // Pull out movie data
-    const { title, MTD, YTD } = measure || {};
+    const { measureTitle, MTD1, YTD1, MTD2, YTD2 } = measure || {};
     // Render nothing if not visible
     if (!this.state.visible) {
       return null;
@@ -277,12 +278,13 @@ export default class MeasurePopUp extends Component {
         >
 
           {/* Content */}
-          <View
+          <LinearGradient
+            colors={['#DCDCFF', '#D2D2F5', '#C8C8EB']}
             style={styles.content}
             {...this._panResponder.panHandlers}>
             <View style={styles.popUpTitle}>
               {/* Measure */}
-              <Text style={styles.sectionHeader}>{title}</Text>
+              <Text style={styles.sectionHeader}>{measureTitle}</Text>
             </View>
             {/* Movie poster, title and genre */}
             <View
@@ -296,7 +298,7 @@ export default class MeasurePopUp extends Component {
             {/* Showtimes */}
 
 
-          </View>
+          </LinearGradient>
         </Animated.View>
       </View>
     );
@@ -322,14 +324,15 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    margin: 20,
+    // margin: 20,
     marginBottom: 0,
+    justifyContent: 'center',
   },
   // Movie container
   infoContainer: {
     flex: 1,                            // take up all available space
     marginBottom: 20,
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   imageContainer: {
     flex: 1,                            // take up all available space
@@ -364,7 +367,7 @@ const styles = StyleSheet.create({
   title: {
     ...defaultStyles.text,
     fontSize: 35,
-    paddingLeft: width / 10,
+    // paddingLeft: width / 10,
     paddingTop: 0,
     paddingBottom: height / 15,
     minWidth: width / 2
@@ -373,7 +376,7 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     ...defaultStyles.text,
-    flex: 1,
+    paddingLeft: width/8,
     color: 'black',
     fontSize: 25,
     textDecorationLine: 'underline',
@@ -405,5 +408,6 @@ const styles = StyleSheet.create({
   popUpTitle: {
     alignItems: 'center',
     paddingBottom: 20,
+    backgroundColor: 'transparent',
   }
 });

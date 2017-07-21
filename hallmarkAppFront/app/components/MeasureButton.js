@@ -8,7 +8,7 @@ import {
   View
 } from 'react-native';
 import { defaultStyles } from './style';
-import { measureTypes } from '../files/data'
+import { measureButtons } from '../files/data'
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
@@ -37,11 +37,13 @@ export default class MeasureButton extends Component {
   }
 
   render() {
-    const { measure, measure: { title, buttonImage }, onOpen } = this.props;
+    const { measure, imgNum, measure: { measureTitle }, onOpen } = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={() => onOpen(measure)}>
         <View style={styles.imageContainer}>
-          <Image source={buttonImage} resizeMode= 'contain' style={styles.image}/>
+          <Image source={require('../files/images/blank-purple-button.png')} resizeMode= 'contain' style={styles.image}>
+            <Text style={styles.buttonLabel}>{measureTitle}</Text>
+          </Image>
         </View>
 
       </TouchableOpacity>
@@ -53,28 +55,24 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 10,
     marginBottom: 10,
-    paddingLeft: width/20,
-    height: (height - 20 - 20) / rows - 10,
-    width: (width - 10) / cols - 10,
-
+    height: ((height - 40) / rows - 10) * .9,
+    width: (width - 10) / (cols * 1.25) - 10,
   },
   imageContainer: {
     flex: 1,                          // take up all available space
   },
   image: {
     borderRadius: 10,                 // rounded corners
-    height: (height - 20 - 20) / rows - 40,
-    width: (width - 10) / cols - 40,
+    height: ((height - 40) / rows - 10) * .9,
+    width: (width - 10) / (cols * 1.25) - 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  title: {
+  buttonLabel: {
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontSize: 23,
     ...defaultStyles.text,
-    fontSize: 14,
-    marginTop: 4,
-  },
-  genre: {
-    ...defaultStyles.text,
-    color: '#BBBBBB',
-    fontSize: 12,
-    lineHeight: 14,
+    textAlign: 'center',
   },
 });

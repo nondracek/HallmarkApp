@@ -36,12 +36,24 @@ export default class CompanyButton extends Component {
     onOpen: PropTypes.func.isRequired,
   }
 
+  // Dynamic styles that depend on state
+  getStyles = () => {
+    return {
+      buttonLabel: (this.props.company.abbreviation === 'Casualty') ? {
+        fontSize: 26,
+      } : {},
+    };
+  }
+
   render() {
     const { company, company: { title, buttonImage, abbreviation }, onOpen } = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={() => onOpen(this.props.navigation, company)}>
         <View style={styles.imageContainer}>
-          <Image source={buttonImage} resizeMode= 'contain' style={styles.image}/>
+          {/* <Image source={buttonImage} resizeMode= 'contain' style={styles.image}/> */}
+          <Image source={require('../files/images/blank-purple-button.png')} resizeMode= 'contain' style={styles.image}>
+            <Text style={[styles.buttonLabel, this.getStyles().buttonLabel]}>{abbreviation}</Text>
+          </Image>
         </View>
 
       </TouchableOpacity>
@@ -53,27 +65,23 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 10,
     marginBottom: 10,
-    paddingLeft: width/20,
-    height: (height - 20 - 20) / rows - 10,
-    width: (width - 10) / cols - 10,
+    minHeight: ((height - 40) / rows - 10) * .9,
+    minWidth: (width - 10) / (cols * 1.25) - 10,
   },
   imageContainer: {
-    flex: 1,                          // take up all available space
+    flex: 1,                 // take up all available space
   },
   image: {
-    borderRadius: 10,                 // rounded corners
-    height: (height - 20 - 20) / rows - 40,
-    width: (width - 10) / cols - 40,
+    // borderRadius: 10,                 // rounded corners
+    height: ((height - 40) / rows - 10) * .9,
+    width: (width - 10) / (cols * 1.25) - 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  title: {
+  buttonLabel: {
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontSize: 50,
     ...defaultStyles.text,
-    fontSize: 14,
-    marginTop: 4,
-  },
-  genre: {
-    ...defaultStyles.text,
-    color: '#BBBBBB',
-    fontSize: 12,
-    lineHeight: 14,
   },
 });
